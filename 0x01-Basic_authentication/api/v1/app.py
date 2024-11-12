@@ -20,6 +20,7 @@ if AUTH_TYPE == 'auth':
 
 @app.before_request
 def before_request() -> str:
+    """Befor request handler."""
     if auth is None:
         return
     if request.path not in ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']:
