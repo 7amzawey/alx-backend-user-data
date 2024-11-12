@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """Basic auth class module."""
 from api.v1.auth.auth import Auth
 
