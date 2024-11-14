@@ -23,7 +23,9 @@ if AUTH_TYPE == 'basic_auth':
 
 if AUTH_TYPE == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
-    auth = SessionAuth()
+    auth = SessionAuth
+
+
 @app.before_request
 def before_request() -> str:
     """Befor request handler."""
