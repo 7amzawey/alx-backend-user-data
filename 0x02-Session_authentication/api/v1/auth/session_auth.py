@@ -4,6 +4,7 @@ import uuid
 from api.v1.auth.auth import Auth
 from models.user import User
 
+
 class SessionAuth(Auth):
     """New mechanism for authentication."""
 
@@ -30,6 +31,5 @@ class SessionAuth(Auth):
     def current_user(self, request=None):
         """Return a user instance."""
         cookie = self.session_cookie(request)
-        print(cookie)
         user_id = self.user_id_for_session_id(cookie)
         return User.get(user_id)
