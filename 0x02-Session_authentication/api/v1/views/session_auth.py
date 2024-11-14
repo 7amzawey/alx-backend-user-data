@@ -8,7 +8,7 @@ from models.user import User
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def auth_session_login() -> str:
-    """GET /api/v1/auth_session/login."""
+    """Get api/v1/auth_session/login."""
     email = request.form.get('email')
     if not email:
         return jsonify({"error": "email missing"}), 400
