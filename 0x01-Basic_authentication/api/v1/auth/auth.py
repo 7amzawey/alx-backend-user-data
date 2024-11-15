@@ -17,8 +17,12 @@ class Auth:
         normalized_path = path.rstrip('/')
         normalized_excluded_paths = [p.rstrip('/') for p in excluded_paths]
 
-        if normalized_path in normalized_excluded_paths:
-            return False
+        for excluded_path in normalized_excluded_paths:
+            if excluded_path.endswith('*'):
+                if normalized_path.startswith(excluded_path[:-1]):
+                    return False
+            elif normalized_path in normalized_excluded_paths:
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
