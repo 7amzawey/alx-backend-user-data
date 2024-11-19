@@ -1,22 +1,40 @@
 #!/usr/bin/env python3
 """Module for a logger function."""
 import re
+import os
 import logging
 from typing import List
+import mysql.connector
+from mysql.connector import connection
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def get_logger() -> logging.Logger:
-    """Return loggin.Logger."""
+    """Return logging.Logger."""
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
     stream_handler = logging.StreamHandler()
-    formattter = logging.ReactingFormatter(fields=PII_FIELDS)
-    stream_handler.setFormatter(formattter)
+    formatter = RedactingFormatter(fields=PII_FIELDS)
+    stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
+    return logger
+
+
+def get_db() -> connection.MySQLConnection:
+    """Return a connector to the database."""
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME')
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD')
+    host = os.getenv('PERSONAL_DATA_DB_HOST')
+    database = os.getenv('PERSONAL_DATA_DB_NAME')
+    return mysql.connector.connect(
+        user=username,
+        password=password,
+        host=host,
+        database=database
+    )
 
 
 def filter_datum(fields: List[str],
