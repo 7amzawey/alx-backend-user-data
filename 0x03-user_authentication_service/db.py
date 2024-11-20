@@ -34,13 +34,14 @@ class DB:
         session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs) -> User:
-        """Return a user object based on his email."""
-        session = self._session
-        for key, value in kwargs.items():
+    def find_user_by(self, **kwargs):
+        """Find user from Database."""
+        for key, val in kwargs.items():
             if not hasattr(User, key):
                 raise InvalidRequestError
-            user = session.query(User).filter_by(email=value).first()
-            if user is None:
+            filter_user = self._session.query(User)
+            user = filter_user.filter(getattr(User, key) == val).first()
+
+            if not user:
                 raise NoResultFound
         return user
