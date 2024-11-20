@@ -40,6 +40,7 @@ class Auth:
             return False
         return False
 
+    @staticmethod
     def _generate_uuid() -> str:
         """Return a string representation of the uuid module."""
         return str(uuid.uuid4())
