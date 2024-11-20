@@ -12,9 +12,9 @@ def _hash_password(password: str) -> bytes:
 
 
 def _generate_uuid() -> str:
-        """Return a string representation of the uuid module."""
-        import uuid
-        return str(uuid.uuid4())
+    """Return a string representation of the uuid module."""
+    import uuid
+    return str(uuid.uuid4())
 
 
 class Auth:
