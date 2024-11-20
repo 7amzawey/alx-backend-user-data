@@ -4,7 +4,6 @@ import bcrypt  # type: ignore
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
-import uuid
 
 
 def _hash_password(password: str) -> bytes:
@@ -40,7 +39,7 @@ class Auth:
             return False
         return False
 
-    @staticmethod
     def _generate_uuid() -> str:
         """Return a string representation of the uuid module."""
+        import uuid
         return str(uuid.uuid4())
