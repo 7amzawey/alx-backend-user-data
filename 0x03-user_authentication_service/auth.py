@@ -28,4 +28,3 @@ class Auth:
             hashed_password = _hash_password(password)
             user = self._db.add_user(email, hashed_password)
         return user
-
