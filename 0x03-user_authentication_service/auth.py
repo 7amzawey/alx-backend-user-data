@@ -4,6 +4,7 @@ import bcrypt  # type: ignore
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 import uuid
 from typing import Union
 
@@ -77,7 +78,7 @@ class Auth:
         """Change the password."""
         try:
             usr = self._db.find_user_by(email=email)
-        except NoResultFound:
+        except (NoResultFound, InvalidRequestError):
             raise ValueError
         token = _generate_uuid()
         self._db.update_user(usr.id, **{'reset_token': token})
